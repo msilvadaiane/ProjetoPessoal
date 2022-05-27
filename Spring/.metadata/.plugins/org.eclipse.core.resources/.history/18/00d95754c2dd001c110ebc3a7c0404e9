@@ -1,0 +1,12 @@
+/**
+ * 
+ */
+package com.example;
+
+/**
+ * @author Daiane
+ *
+ */
+public interface blogpessoal_repository {
+
+}
