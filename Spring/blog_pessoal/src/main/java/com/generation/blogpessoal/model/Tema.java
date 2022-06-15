@@ -15,7 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="tb_tema")
-public class TemaModel {
+public class Tema {
 	
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)

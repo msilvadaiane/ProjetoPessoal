@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blogpessoal.Repository.TemaRepository;
-import com.generation.blogpessoal.model.TemaModel;
+import com.generation.blogpessoal.model.Tema;
 
 
 
@@ -31,13 +31,13 @@ public class TemaController {
  private TemaRepository TemaRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<TemaModel>> getAll (){
+	public ResponseEntity<List<Tema>> getAll (){
 		return ResponseEntity.ok(TemaRepository.findAll());
 		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity <TemaModel> getById(@PathVariable Long id){
+	public ResponseEntity <Tema> getById(@PathVariable Long id){
 		return TemaRepository.findById(id)
 			.map(resp -> ResponseEntity.ok(resp))
 			.orElse(ResponseEntity.notFound().build());
@@ -45,12 +45,12 @@ public class TemaController {
 	
 	
 	@PostMapping
-	public ResponseEntity <TemaModel> postTema(@Valid @RequestBody TemaModel tema){
+	public ResponseEntity <Tema> postTema(@Valid @RequestBody Tema tema){
 		return ResponseEntity.status(HttpStatus.CREATED).body(TemaRepository.save(tema));
 	}
 	
 	@PutMapping
-	public ResponseEntity<TemaModel> putTema (@Valid @RequestBody TemaModel tema){
+	public ResponseEntity<Tema> putTema (@Valid @RequestBody Tema tema){
 		return TemaRepository.findById(tema.getId())
 			.map(resposta -> ResponseEntity.ok().body(TemaRepository.save(tema)))
 			.orElse(ResponseEntity.notFound().build());

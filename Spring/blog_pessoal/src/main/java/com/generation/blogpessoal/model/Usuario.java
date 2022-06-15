@@ -2,7 +2,7 @@ package com.generation.blogpessoal.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +30,7 @@ public class Usuario {
 
 	
 	@NotNull(message = "O atributo Usuário é Obrigatório!")
-	@Email(message = "O atributo Usuário deve ser um email válido!")
+	@Email
 	private String usuario;
 
 	@NotBlank(message = "O atributo Senha é Obrigatório!")
@@ -39,9 +39,9 @@ public class Usuario {
 
 	private String foto;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
+	@OneToMany
 	@JsonIgnoreProperties("usuario")
-	private List<PostagemModel> postagem;
+	private List<Postagem> postagem;
 
 	/** Métodos Construtores */
 	
@@ -95,6 +95,13 @@ public class Usuario {
 		this.foto = foto;
 	}
 
+	public List<Postagem> getPostagem() {
+		return postagem;
+	}
 
+	public void setPostagem(List<Postagem> postagem) {
+		this.postagem = postagem;
+	}
 
 }
+

@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import com.generation.sustentatech.model.Usuario;
-import com.generation.sustentatech.model.UsuarioLogin;
-import com.generation.sustentatech.repository.UsuarioRepository;
-import com.generation.sustentatech.service.UsuarioService;
+import com.generation.blogpessoal.model.Usuario;
+import com.generation.blogpessoal.model.UsuarioLogin;
+import com.generation.blogpessoal.Repository.*;
+import com.generation.blogpessoal.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,10 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UsuarioController {
 
-	/**
-	 * Faz uma injeção de dependência da classe de Serviço UsuarioService
-	 * para ter acesso aos métodos do CRUD com regras de negócio
-	 */
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -40,25 +36,17 @@ public class UsuarioController {
 	@GetMapping("/all")
 	public ResponseEntity <List<Usuario>> getAll(){
 		
-		return ResponseEntity.ok(com.generation.blogpessoal.Repository.UsuarioRepository.findAll());
+		return ResponseEntity.ok(usuarioRepository.findAll());
 		
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<com.generation.blogpessoal.model.Usuario> getById(@PathVariable Long id) {
-		return com.generation.blogpessoal.Repository.UsuarioRepository.findById(id)
+	public ResponseEntity<Usuario> getById(@PathVariable Long id) {
+		return usuarioRepository.findById(id)
 			.map(resposta -> ResponseEntity.ok(resposta))
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
-	/**
-	 * Executa o método autenticarUsuario da classe de serviço para efetuar
-	 * o login na api. O método da classe Controladora checa se deu certo e
-	 * exibe as mensagens (Response Status) pertinentes. 
-	 * 
-	 * Caso o login tenha sido bem sucedido, os dados do usuário e o token 
-	 * são exibidos.
-	 */
 	@PostMapping("/logar")
 	public ResponseEntity<UsuarioLogin> login(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
 		return usuarioService.autenticarUsuario(usuarioLogin)
@@ -66,14 +54,6 @@ public class UsuarioController {
 			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 
-	/**
-	 * Executa o método cadastrarUsuario da classe de serviço para criar
-	 * um novo usuário na api. O método da classe Controladora checa se 
-	 * deu certo e exibe as mensagens (Response Status) pertinentes. 
-	 * 
-	 * Caso cadastro tenha sido bem sucedido, os dados do usuário são 
-	 * exibidos.
-	 */
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario) {
 
@@ -83,14 +63,6 @@ public class UsuarioController {
 
 	}
 
-	/**
-	 * Executa o método atualizarUsuario da classe de serviço para atualizar
-	 * os dados de um usuário na api. O método da classe Controladora checa 
-	 * se deu certo e exibe as mensagens (Response Status) pertinentes. 
-	 * 
-	 * Caso a atualização tenha sido bem sucedida, os dados do usuário 
-	 * atualizados são exibidos.
-	 */
 	@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> putUsuario(@Valid @RequestBody Usuario usuario) {
 		return usuarioService.atualizarUsuario(usuario)
@@ -99,3 +71,4 @@ public class UsuarioController {
 	}
 
 }
+

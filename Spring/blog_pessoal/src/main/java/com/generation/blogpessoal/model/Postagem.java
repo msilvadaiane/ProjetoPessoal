@@ -15,7 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name="tb_postagens")
-public class PostagemModel {
+public class Postagem {
 	
 	@Id
 	@GeneratedValue (strategy=GenerationType.IDENTITY)

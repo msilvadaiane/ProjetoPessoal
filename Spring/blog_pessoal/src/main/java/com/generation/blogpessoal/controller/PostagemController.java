@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.generation.blogpessoal.Repository.PostagemRepository;
-import com.generation.blogpessoal.model.PostagemModel;
+import com.generation.blogpessoal.model.Postagem;
 
 @RestController
 @RequestMapping("/postagens")
@@ -29,30 +29,30 @@ public class PostagemController {
  private PostagemRepository postagemRepository;
 	
 	@GetMapping
-	public ResponseEntity<List<PostagemModel>> getAll (){
+	public ResponseEntity<List<Postagem>> getAll (){
 		return ResponseEntity.ok(postagemRepository.findAll());
 		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity <PostagemModel> getById(@PathVariable Long id){
+	public ResponseEntity <Postagem> getById(@PathVariable Long id){
 		return postagemRepository.findById(id)
 			.map(resp -> ResponseEntity.ok(resp))
 			.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/titulo/{titulo}")
-	public ResponseEntity <List<PostagemModel>> getByTitulo(@PathVariable String titulo){
+	public ResponseEntity <List<Postagem>> getByTitulo(@PathVariable String titulo){
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 	}
 	
 	@PostMapping
-	public ResponseEntity <PostagemModel> postPostagem(@Valid @RequestBody PostagemModel postagem){
+	public ResponseEntity <Postagem> postPostagem(@Valid @RequestBody Postagem postagem){
 		return ResponseEntity.status(HttpStatus.CREATED).body(postagemRepository.save(postagem));
 	}
 	
 	@PutMapping
-	public ResponseEntity<PostagemModel> putPostagem (@Valid @RequestBody PostagemModel postagem){
+	public ResponseEntity<Postagem> putPostagem (@Valid @RequestBody Postagem postagem){
 		return postagemRepository.findById(postagem.getId())
 			.map(resposta -> ResponseEntity.ok().body(postagemRepository.save(postagem)))
 			.orElse(ResponseEntity.notFound().build());
