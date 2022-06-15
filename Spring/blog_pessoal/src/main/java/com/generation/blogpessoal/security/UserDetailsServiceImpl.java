@@ -3,7 +3,7 @@ package com.generation.blogpessoal.security;
 import java.util.Optional;
 
 import com.generation.blogpessoal.model.Usuario;
-import com.generation.blogpessoal.Repository.*;
+import com.generation.blogpessoal.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

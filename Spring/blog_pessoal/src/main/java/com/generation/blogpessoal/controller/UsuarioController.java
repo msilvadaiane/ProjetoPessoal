@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import com.generation.blogpessoal.model.Usuario;
 import com.generation.blogpessoal.model.UsuarioLogin;
-import com.generation.blogpessoal.Repository.*;
+import com.generation.blogpessoal.repository.*;
 import com.generation.blogpessoal.service.UsuarioService;
 
 import org.springframework.beans.factory.annotation.Autowired;
