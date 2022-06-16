@@ -1,16 +1,21 @@
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.UpdateTimestamp;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -25,9 +30,9 @@ public class Tema {
 	@Size (min=5, max=100, message= "O atributo título deve conter no mínimo 5 caracteres e no máximo 100")
 	private String tema;
 	
-
-	@UpdateTimestamp 
-	private LocalDateTime data;
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("tema")
+	private List<Postagem> postagem;
 	
 	
 public Long getId() {
@@ -48,19 +53,19 @@ public Long getId() {
 	public void setTema(String tema) {
 		this.tema = tema;
 	}
-
-
-	public LocalDateTime getData() {
-		return data;
+	
+	public List<Postagem> getPostagem()
+	{
+		return postagem;
 	}
 
+	public void setPostagem(List<Postagem> postagem)
+	{
+		this.postagem = postagem;
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
 
+	
 
-{
 
 }
 }
